@@ -1,24 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Showdata from "./components/Showdata";
+import Changedata from "./components/Changedata";
+import { UserContext } from "./store/UserContext";
+import { useState } from "react";
 
 function App() {
+  const [value, setValue] = useState(0);
+  const [abc, setAbc] = useState(1);
+  const hello = () => {
+    setAbc((prev) => prev * -1);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <UserContext.Provider value={{ value, setValue, hello }}>
+      <div className={abc === 1 ? "bview" : "rview"}>
+        <Showdata />
+        <h1 style={{ color: "yellow" }}>{abc === 1 ? "Plavo" : "Crveno"}</h1>
+        <Changedata />
+      </div>
+    </UserContext.Provider>
   );
 }
 
